@@ -7,18 +7,19 @@ const style = {
     active: {backgroundColor: 'yellow'}
 }
 
-type Props = { char: validChar}
-export const Card: FC<Props> = ({char}) => {
+type Props = { char: validChar, matchFound: boolean}
+export const Card: FC<Props> = ({char, matchFound}) => {
     const [isActive, setActive] = useState(false)
     const toggleState = useCallback(() => {
         setActive(!isActive)
     }, [isActive])
 
-    return (<div onClick={toggleState}>
-        { isActive 
-            ? <div style={style.base}>{char}</div>
-            : <div style={style.base}></div>
-        }
-    </div>
+    const cardState = matchFound 
+    ? (<div style={style.base}>{char}</div>) 
+    : isActive 
+        ? <div style={style.base}>{char}</div>
+        : <div style={style.base}></div>
+
+    return (<div onClick={toggleState}> {cardState}</div>
     )
 }
