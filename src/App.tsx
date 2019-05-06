@@ -5,7 +5,7 @@ import './App.css';
 const App: FC = () => {
   return (
     <div className="App">
-      <GameBoard></GameBoard>
+      <GameBoard />
     </div>
   );
 }

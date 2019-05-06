@@ -1,14 +1,13 @@
 import {flatMap, shuffle, chunk} from 'lodash/fp'
 
 export type validChar = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
-type GameBoard = validChar[][]
+export type GameConfig = validChar[][]
 
 const gameChars: validChar[] = ['A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H']
-export const genGameBoard = ():GameBoard => {
+export const genGameBoard = ():GameConfig => {
     
     //flatmap the charArray to generate the char pairs
     const charPairs = flatMap(v => [v,v], gameChars)
     const randomizedPairs = shuffle(charPairs)
-    console.log(chunk(4, randomizedPairs) as any)
-    return chunk(4, randomizedPairs) as GameBoard
+    return chunk(4, randomizedPairs)
 }
