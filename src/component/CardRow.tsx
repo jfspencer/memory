@@ -7,7 +7,7 @@ type Props = { row: CardState[]}
 
 export const CardRow: FC<Props> = ({row}) => {
     return (
-        <div style={{backgroundColor: 'blue', padding: '20px',}}>
+        <div style={{backgroundColor: 'blue'}}>
             {row.map(v => (<Card key={random(0,9999999)} card={v} />))}
         </div>
     )

@@ -14,6 +14,7 @@ export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
     
     return (
         <div style={{backgroundColor: 'red', padding: '20px', display: 'flex'}}>
+        
             <div onClick={resetGame}>RESET</div>
             {boardConfig.map(row => <CardRow key={random(1,999999)} row={row} />)}
         </div>
@@ -22,3 +23,5 @@ export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
 
 const mapStateToProps = (state: any) => ({boardConfig: getGameLayout(state)})
 export const GameBoard = connect(mapStateToProps, {ResetGame})(_GameBoard)
+
+//** */

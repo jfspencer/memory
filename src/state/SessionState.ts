@@ -8,11 +8,13 @@ export const ResetGame = () => ({type: '[GameBoard] RESET'})
 
 //** SELECTORS */
 export const getGameLayout = (state: any) => state.sessionState.boardConfig
+export const getPrefs = (state: any) => state.sessionState.prefs
 
 //** REDUCER */
 const initialState = {
     boardConfig: genGameBoard(),
-    playerTurn: [] as CardState[]
+    playerTurn: [] as CardState[],
+    prefs: {columns: 4, symbols: 'A,B,C,D,E,F,G,H'}
 }
 
 export function SessionStateReducer(state = initialState, action: {type: string, payload: CardState}) {
