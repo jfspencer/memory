@@ -1,21 +1,14 @@
 import {flatMap, shuffle, chunk} from 'lodash/fp'
-import { store } from '../state';
-import { getPrefs } from '../state/SessionState';
-
-export type validChar = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | '@' | 'SDLKFJ'
-export type CardState = {char:validChar, found: boolean, id: number}
+export type CardState = {char:string, found: boolean, id: number}
 export type GameConfig = CardState[][]
 
-const gameChars: validChar[] = ['A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H', '@', 'SDLKFJ']
+const gameChars: string = "A,B,C,D,E,@,AB,BA"
 let count = 0
-export const genGameBoard = ():GameConfig => {
-    //const {columns = 4, symbols }:{columns: number, symbols: string} = getPrefs(store.getState())
-    
-    //flatmap the charArray to generate the char pairs
-    const charPairs = flatMap(v => [v,v], gameChars as validChar[])
+export const initGameBoard = (col = 4, symbols = gameChars):GameConfig => {
+    const charPairs = flatMap(v => [v,v], symbols.split(','))
     const randomizedPairs = shuffle(charPairs).map(char => ({char, found: false, id: genId() }))
     count = count + 1
-    return chunk(4, randomizedPairs)
+    return chunk(col, randomizedPairs)
 }
 
 const genId = () => {

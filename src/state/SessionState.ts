@@ -1,10 +1,10 @@
-import { validChar, CardState } from "../util/utils";
-import { genGameBoard } from "../util/utils";
+import { CardState } from "../util/utils";
+import { initGameBoard } from "../util/utils";
 import {flatMap, partition, map } from "lodash/fp";
 
 //** ACTIONS */
-export const CardTap = (char: validChar) => ({type: '[Card] TAP', payload: char})
-export const ResetGame = () => ({type: '[GameBoard] RESET'})
+export const CardTap = (char: string) => ({type: '[Card] TAP', payload: char})
+export const ResetGame = (columns:number, symbols:string) => ({type: '[GameBoard] RESET', payload: {columns, symbols}})
 
 //** SELECTORS */
 export const getGameLayout = (state: any) => state.sessionState.boardConfig
@@ -12,15 +12,16 @@ export const getPrefs = (state: any) => state.sessionState.prefs
 
 //** REDUCER */
 const initialState = {
-    boardConfig: genGameBoard(),
+    boardConfig: initGameBoard(),
     playerTurn: [] as CardState[],
     prefs: {columns: 4, symbols: 'A,B,C,D,E,F,G,H'}
 }
 
-export function SessionStateReducer(state = initialState, action: {type: string, payload: CardState}) {
+export function SessionStateReducer(state = initialState, action: {type: string, payload: any}) {
     switch (action.type) {
       case '[GameBoard] RESET':
-        return {...state, boardConfig: genGameBoard(), playerTurn: []}
+        const {columns, symbols} = action.payload;
+        return {...state, boardConfig: initGameBoard(columns, symbols), playerTurn: [], prefs: {columns, symbols }}
       case '[Card] TAP':
         if(state.playerTurn.length  < 2) return {...state, playerTurn:[...state.playerTurn, action.payload]}
         else if(state.playerTurn.length === 2) {
