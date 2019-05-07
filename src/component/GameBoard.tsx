@@ -15,7 +15,7 @@ export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
     }
     
     return (
-        <div style={{backgroundColor: 'red', padding: '20px', display: 'flex'}}>
+        <div style={{padding: '20px', display: 'flex'}}>
             <div style={{flexDirection:'row'}}>
                 <div onClick={resetGame}>RESET</div>
                 <div><input placeholder={'Symbols ex: 1,A,$,BFG'} onChange={(v) => setSymbols(v.target.value)} /></div>

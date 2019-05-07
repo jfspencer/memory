@@ -11,7 +11,7 @@ const style = {
 
 const activeCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...style.active}
 const inactiveCard = {...{ transform: 'rotateY(-180deg)'}, ...style.base, ...style.inactive}
-const matchedCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...{backgroundColor:'blue'}}
+const matchedCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...{backgroundColor:'rgb(60,60,55)', border: '0'}}
 
 type Props = { card: CardState, CardTap: any, turn: CardState[]}
 const _Card: FC<Props> = ({card, CardTap, turn}) => {
