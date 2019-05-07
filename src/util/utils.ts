@@ -11,7 +11,12 @@ export const genGameBoard = (symbols = gameChars, rows = 4):GameConfig => {
     
     //flatmap the charArray to generate the char pairs
     const charPairs = flatMap(v => [v,v], symbols)
-    const randomizedPairs = shuffle(charPairs).map(char => ({char, found: false, id: count }))
+    const randomizedPairs = shuffle(charPairs).map(char => ({char, found: false, id: genId() }))
     count = count + 1
     return chunk(rows, randomizedPairs)
+}
+
+const genId = () => {
+    count = count + 1
+    return count
 }

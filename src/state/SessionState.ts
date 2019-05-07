@@ -30,8 +30,7 @@ export function SessionStateReducer(state = initialState, action: {type: string,
         if(state.playerTurn.length  < 2) return {...state, playerTurn:[...state.playerTurn, action.payload]}
         else if(state.playerTurn.length === 2) {
           const [c1, c2] = state.playerTurn
-          console.log(c1, c2)
-          if(c1 === c2){
+          if(c1.char === c2.char){
             const [m1] = flow([
               flatMap((v: CardState) => v),
               partition((v: CardState) => v.id === action.payload.id),
