@@ -11,12 +11,9 @@ const style = {
 
 type Props = { card: CardState, CardTap: any, CardClear: any, turn: CardState[]}
 const _Card: FC<Props> = ({card, CardTap, CardClear, turn}) => {
-    //const [isActive, setActive] = useState(false)
-    const toggleState = useCallback(() => {
-        if(!turn.find(v => v.id === card.id)) CardTap(card)
-        else CardClear(card)
-    }, [turn])
-    console.log(card.char, !!turn.find(v => v.id === card.id))
+    const toggleState = useCallback(() => 
+        !turn.find(v => v.id === card.id) ? CardTap(card) : CardClear(card), [turn])
+        
     const cardState = card.found 
     ? (<div style={style.base}>{card.char}</div>) 
     : !!turn.find(v => v.id === card.id)
