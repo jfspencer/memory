@@ -1,3 +1,8 @@
+### Running
+- launch ./build/index.html in a browser
+
+### Notes
+- state changes are emitted to the console
 
 ### Next Steps
 - wire up effects middleware (redux-saga) to 
