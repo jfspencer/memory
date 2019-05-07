@@ -7,10 +7,9 @@ import './App.css';
 const App: FC = () => {
   return (
     <div className="App">
-    <Provider store={store}>
-      <GameBoard />
-    </Provider>
-      
+      <Provider store={store}>
+        <GameBoard />
+      </Provider>
     </div>
   );
 }
