@@ -1,5 +1,4 @@
 import {flatMap, shuffle, chunk} from 'lodash/fp'
-import random from 'lodash/fp/random';
 
 export type validChar = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 export type CardState = {char:validChar, found: boolean, id: number}

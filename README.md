@@ -1,3 +1,11 @@
+
+### Bugs
+- second tap required after a match is found
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
