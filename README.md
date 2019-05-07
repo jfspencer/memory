@@ -1,11 +1,17 @@
 
-### Bugs
-- second tap required after a match is found
+### Next Steps
+- wire up effects middleware (redux-saga) to 
+    - handle auto hiding of two mismatched cards
+    - display congrats message when the last pair is found and reset the game
+- multi-player
+    - local
+    - remote
 
 
 
 
 
+## BOILERPLATE README
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
