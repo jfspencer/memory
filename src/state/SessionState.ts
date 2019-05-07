@@ -1,6 +1,6 @@
 import { validChar, CardState } from "../util/utils";
 import { genGameBoard } from "../util/utils";
-import {flatMap, partition, flow, map, pull } from "lodash/fp";
+import {flatMap, partition, compose, map, pull } from "lodash/fp";
 
 //** ACTIONS */
 export const CardTap = (char: validChar) => ({type: '[Card] TAP', payload: char})
@@ -29,14 +29,19 @@ export function SessionStateReducer(state = initialState, action: {type: string,
       case '[Card] TAP':
         if(state.playerTurn.length  < 2) return {...state, playerTurn:[...state.playerTurn, action.payload]}
         else if(state.playerTurn.length === 2) {
+          console.log(state.playerTurn)
           const [c1, c2] = state.playerTurn
+
           if(c1.char === c2.char){
-            const [m1] = flow([
-              flatMap((v: CardState) => v),
-              partition((v: CardState) => v.id === action.payload.id),
-              map(([[m1, m2]]) => [{...m1, found:true}, {...m2, found:true}])
-            ])(state.boardConfig)
-            const boardConfig = map(row => row.map(card => card.char === m1.char ? m1 : card), {...state.boardConfig})
+            const flat = flatMap((v: CardState) => v, state.boardConfig)
+            const parts = partition((v: CardState) => v.id === c1.id || v.id === c2.id, flat)
+            const [[match1, match2]] = map(([v1, v2]: any) => [{...v1, found:true}, {...v2, found:true}], parts)
+            
+            const boardConfig = map(row => row.map(card => {
+              if(card.id === match1.id) return  match1;
+              else if(card.id === match2.id) return match2;
+              else return card;
+            }), {...state.boardConfig})
             console.log(boardConfig)
             return {...state, boardConfig, playerTurn:[]}  
           }
