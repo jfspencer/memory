@@ -1,15 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { Card } from './Card'
-import { validChar } from '../util/utils';
+import { CardState } from '../util/utils';
+import random from 'lodash/fp/random'
 
-
-type Props = { row: validChar[]}
+type Props = { row: CardState[]}
 
 export const CardRow: FC<Props> = ({row}) => {
-    //CardRow contains Cards
     return (
         <div style={{backgroundColor: 'blue', padding: '20px',}}>
-            {row.map(v => (<Card char={v} matchFound={false} />))}
+            {row.map(v => (<Card key={random(0,9999999)} card={v} />))}
         </div>
     )
 }
