@@ -4,7 +4,7 @@ import { CardState } from '../util/utils';
 import { CardTap } from '../state/SessionState';
 
 const style = {
-    base: {color:'black',padding: '20px', width: '10vw', height:'10vh', border: '1px solid gray', transition:'all 0.2s'},
+    base: {color:'black', fontSize: '70px', padding: '20px', width: '10vw', height:'10vh', border: '1px solid gray', transition:'all 0.2s'},
     inactive: {backgroundColor: 'green'},
     active: {backgroundColor: 'rgb(235,235,235)'}
 }
@@ -16,8 +16,7 @@ type Props = { card: CardState, CardTap: any, turn: CardState[]}
 const _Card: FC<Props> = ({card, CardTap, turn}) => {
     const toggleState = useCallback(() => 
         !turn.find(v => v.id === card.id) ? CardTap(card) : null, [turn, CardTap, card])
-        
-    console.log(card.char, !!turn.find(v => v.id === card.id),  card)
+
     const cardState = card.found 
     ? (<div style={activeCard}>{card.char}</div>) 
     : !!turn.find(v => v.id === card.id)
