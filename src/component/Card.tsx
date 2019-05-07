@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { validChar, CardState } from '../util/utils';
-import Rxmq from 'rxmq';
+import { CardState } from '../util/utils';
+import { CardTap, CardClear } from '../state/SessionState';
 
 const style = {
     base: {padding: '20px', width: '10vw', height:'10vh', border: '1px solid gray'},
@@ -9,11 +9,12 @@ const style = {
     active: {backgroundColor: 'yellow'}
 }
 
-type Props = { card: CardState}
-const _Card: FC<Props> = ({card}) => {
+type Props = { card: CardState, CardTap: any, CardClear: any}
+const _Card: FC<Props> = ({card, CardTap, CardClear}) => {
     const [isActive, setActive] = useState(false)
     const toggleState = useCallback(() => {
-        //Rxmq.channel(CardChannel).subject(tapAction).next(char);
+        if(!isActive) CardTap(card.char)
+        else CardClear(card.char)
         setActive(!isActive)
     }, [isActive])
 
@@ -33,4 +34,4 @@ const mapStateToProps = (state: any /*, ownProps*/) => {
     }
   }
 
-export const Card = connect(mapStateToProps)(_Card)
+export const Card = connect(mapStateToProps, {CardTap, CardClear})(_Card)

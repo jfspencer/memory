@@ -1,30 +1,24 @@
-import React, { FC, useState, useCallback } from 'react'
+import React, { FC } from 'react'
 import { CardRow } from './CardRow'
-import { genGameBoard, GameConfig } from '../util/utils';
+import { GameConfig } from '../util/utils';
 import random from 'lodash/fp/random';
 import { connect } from 'react-redux';
-import { getGameLayout } from '../state/GameConfig';
+import { getGameLayout, ResetGame } from '../state/SessionState';
 
+type Props = {boardConfig: GameConfig, ResetGame: any}
 
-type Props = {boardConfig: GameConfig, reset: any}
-
-const ResetGameAction = () => ({type: '[GameBoard] RESET'})
-
-export const _GameBoard: FC<Props> = (props) => {
+export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
     const resetGame = () => {
-        props.reset()
+        ResetGame()
     }
-    console.log(props)
+    
     return (
         <div style={{backgroundColor: 'red', padding: '20px', display: 'flex'}}>
             <div onClick={resetGame}>RESET</div>
-            {props.boardConfig.map(row => <CardRow key={random(1,999999)} row={row} />)}
+            {boardConfig.map(row => <CardRow key={random(1,999999)} row={row} />)}
         </div>
     )
 }
 
-const mapStateToProps = (state: any) => {
-    console.log(state)
-    return ({boardConfig: getGameLayout(state)})
-}
-export const GameBoard = connect(mapStateToProps, {reset:ResetGameAction})(_GameBoard)
+const mapStateToProps = (state: any) => ({boardConfig: getGameLayout(state)})
+export const GameBoard = connect(mapStateToProps, {ResetGame})(_GameBoard)

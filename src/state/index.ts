@@ -1,13 +1,9 @@
 import { createStore } from 'redux'
 import { combineReducers } from 'redux'
-import { playerTapsReducer as playerTaps  } from './PlayerTaps';
 import { SessionStateReducer as sessionState } from './SessionState';
-import { GameConfigReducer as gameConfig } from './GameConfig';
 
 const stateReducers = combineReducers({
-  playerTaps,
-  sessionState,
-  gameConfig
+  sessionState
 })
 
   export const store = createStore(stateReducers)
