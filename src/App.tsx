@@ -7,7 +7,6 @@ import './App.css';
 const App: FC = () => {
   return (
     <div className="App">
-    <input placeholder={'Number of columns'} />
     <Provider store={store}>
       <GameBoard />
     </Provider>

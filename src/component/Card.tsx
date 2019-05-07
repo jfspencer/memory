@@ -4,7 +4,7 @@ import { CardState } from '../util/utils';
 import { CardTap } from '../state/SessionState';
 
 const style = {
-    base: {color:'black', fontSize: '70px', width: '10vw', height:'10vh', border: '1px solid gray', transition:'all 0.2s'},
+    base: {color:'black', fontSize: '70px', width: '15vw', height:'10vh', border: '1px solid gray', transition:'all 0.2s'},
     inactive: {backgroundColor: 'green'},
     active: {backgroundColor: 'rgb(235,235,235)'},
 }
@@ -23,7 +23,7 @@ const _Card: FC<Props> = ({card, CardTap, turn}) => {
     : !!turn.find(v => v.id === card.id)
         ? <div style={activeCard}>{card.char}</div>
         : <div style={inactiveCard}></div>
-    return (<div style={{padding:'10px'}} onClick={toggleState}> {cardState}</div>
+    return (<div style={{margin:'15px'}} onClick={toggleState}> {cardState}</div>
     )
 }
 
