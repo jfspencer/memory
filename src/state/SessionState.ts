@@ -8,7 +8,6 @@ export const CardClear = (char: validChar) => ({type: '[Card] CLEAR', payload: c
 export const getGameLayout = (state: any) => {
   return state.sessionState.boardConfig
 }
-
 export const ResetGame = () => ({type: '[GameBoard] RESET'})
 
 //** SELECTORS */
@@ -18,32 +17,33 @@ export const revealedCards = (state: any) => state.sessionState.playerTurn
 //** REDUCER */
 const initialState = {
     boardConfig: genGameBoard(),
-    playerTurn: [] as validChar[]
+    playerTurn: [] as CardState[]
 }
 
-export function SessionStateReducer(state = initialState, action: {type: string, payload: validChar}) {
+export function SessionStateReducer(state = initialState, action: {type: string, payload: CardState}) {
     switch (action.type) {
       case '[GameBoard] RESET':
         return {...state, boardConfig: genGameBoard(), playerTurn: []}
       case '[Card] CLEAR':
         return {...state, playerTurn: pull(action.payload, state.playerTurn)}
       case '[Card] TAP':
-        if(state.playerTurn.length  === 0) return {...state, playerTurn:[...state.playerTurn, action.payload]}
-        else if(state.playerTurn.length === 1 && action.payload === state.playerTurn[0]) {
-          console.log('card tap', action.payload)
-          if(action.payload === state.playerTurn[0]){
-            //find the two states that match action.payload
-            const [m1, m2] = flow([
+        if(state.playerTurn.length  < 2) return {...state, playerTurn:[...state.playerTurn, action.payload]}
+        else if(state.playerTurn.length === 2) {
+          const [c1, c2] = state.playerTurn
+          console.log(c1, c2)
+          if(c1 === c2){
+            const [m1] = flow([
               flatMap((v: CardState) => v),
-              partition((v: CardState) => v.char === action.payload),
+              partition((v: CardState) => v.id === action.payload.id),
               map(([[m1, m2]]) => [{...m1, found:true}, {...m2, found:true}])
             ])(state.boardConfig)
             const boardConfig = map(row => row.map(card => card.char === m1.char ? m1 : card), {...state.boardConfig})
             console.log(boardConfig)
             return {...state, boardConfig, playerTurn:[]}  
           }
-          return {...state, playerTurn:[]}
+          return {...state, playerTurn:[action.payload]}
         }
+        
         return state
       default:
         return state
