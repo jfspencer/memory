@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card } from './Card';
+import 'jest-dom/extend-expect';
+import 'react-testing-library/cleanup-after-each';
+import { render, cleanup } from 'react-testing-library'
+afterEach(cleanup)
 
 describe('GameBoard', () => {
     it('should reset when reset is tapped', () => {

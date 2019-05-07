@@ -19,10 +19,10 @@ const _Card: FC<Props> = ({card, CardTap, turn}) => {
         !turn.find(v => v.id === card.id) ? CardTap(card) : null, [turn, CardTap, card])
 
     const cardState = card.found 
-    ? (<div style={matchedCard} />) 
+    ? (<div id="card-invisible" style={matchedCard} />) 
     : !!turn.find(v => v.id === card.id)
-        ? <div style={activeCard}>{card.char}</div>
-        : <div style={inactiveCard}></div>
+        ? <div id="card-active" style={activeCard}>{card.char}</div>
+        : <div id="card-inactive" style={inactiveCard}></div>
     return (<div style={{margin:'15px'}} onClick={toggleState}> {cardState}</div>
     )
 }

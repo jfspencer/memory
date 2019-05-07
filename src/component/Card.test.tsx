@@ -1,9 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Card } from './Card';
+import 'react-testing-library/cleanup-after-each';
+import { render, cleanup } from 'react-testing-library'
+
+afterEach(cleanup)
 
 describe('Card', () => {
     it('should show invisible state when found === true', () => {
+        const {findByText} = render(<Card card={{found: true, id: 1, char:'a'}} />);
+        expect(findByText('card-invisible')).toBe(3)
 
     });
 
