@@ -28,9 +28,9 @@ export function SessionStateReducer(state = initialState, action: {type: string,
           const [c1, c2] = state.playerTurn
           if(c1.char === c2.char) {
             const flat = flatMap((v: CardState) => v, state.boardConfig)
-            const parts = partition((v: CardState) => v.id === c1.id || v.id === c2.id, flat)
-            const [[match1, match2]] = map(([v1, v2]: any) => [{...v1, found:true}, {...v2, found:true}], parts)
-            const updatedBoard = map(row => row.map(updateRowMatch(match1, match2)), {...state.boardConfig})
+            const [matchedCards] = partition((v: CardState) => v.id === c1.id || v.id === c2.id, flat)
+            const [foundMatch1, foundMatch2] = map((v: any) => ({...v, found:true}), matchedCards)
+            const updatedBoard = map(row => row.map(updateRowMatch(foundMatch1, foundMatch2)), {...state.boardConfig})
             return {...state, boardConfig: updatedBoard, playerTurn:[action.payload]}  
           }
           return {...state, playerTurn:[action.payload]}
