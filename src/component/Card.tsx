@@ -27,6 +27,6 @@ const _Card: FC<Props> = ({card, CardTap, turn}) => {
     )
 }
 
-const mapStateToProps = (state: any ) => ({turn: state.sessionState.playerTurn})
+const mapStateToProps = (state: any ) => ({turn: state.sessionState.turn})
 
 export const Card = connect(mapStateToProps, {CardTap})(_Card)

@@ -2,7 +2,7 @@ import {flatMap, shuffle, chunk} from 'lodash/fp'
 export type CardState = {char:string, found: boolean, id: number}
 export type GameConfig = CardState[][]
 
-const defaultGameChars: string = "A,B,C,D,E,@,AB,BA"
+export const defaultGameChars: string = "A,B,C,D,E,@,AB,BA"
 let count = 0
 
 export const initGameBoard = (col = 4, symbols = defaultGameChars):GameConfig => {

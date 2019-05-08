@@ -18,7 +18,7 @@ describe('SessionState', () => {
 
     });
 
-    it('SessionStateReducer TAP should append to playerTurn when playerTurn is < 2', () => {
+    it('SessionStateReducer TAP should append to turn when turn is < 2', () => {
 
     });
 
@@ -34,7 +34,7 @@ describe('SessionState', () => {
 
     });
 
-    it('SessionStateReducer TAP should reset playerTurn if match is not found', () => {
+    it('SessionStateReducer TAP should reset turn if match is not found', () => {
 
     });
 })
