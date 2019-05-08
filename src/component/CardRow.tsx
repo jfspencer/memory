@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { Card } from './Card'
 import random from 'lodash/fp/random'
-import { CardState } from '../state/SessionState';
+import { Card as CardT } from '../state/SessionState';
 
-type Props = { row: CardState[]}
+type Props = { row: CardT[]}
 
 export const CardRow: FC<Props> = ({row}) => {
     return (

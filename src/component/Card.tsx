@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { CardTap, CardState } from '../state/SessionState';
+import { CardTap, Card as CardT } from '../state/SessionState';
 import { State } from '../state';
 
 const style = {
@@ -13,7 +13,7 @@ const activeCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...style.ac
 const inactiveCard = {...{ transform: 'rotateY(-180deg)'}, ...style.base, ...style.inactive}
 const matchedCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...{backgroundColor:'rgb(60,60,55)', border: '0'}}
 
-type Props = { card: CardState, CardTap: typeof CardTap, turn: CardState[]}
+type Props = { card: CardT, CardTap: typeof CardTap, turn: CardT[]}
 const _Card: FC<Props> = ({card, CardTap, turn}) => {
     const toggleState = useCallback(() => 
         !turn.find(v => v.id === card.id) ? CardTap(card) : null, [turn, CardTap, card])
