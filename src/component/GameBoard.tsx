@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
 import { CardRow } from './CardRow'
-import { GameConfig } from '../util/utils';
+import { GameConfig, defaultGameChars } from '../util/utils';
 import random from 'lodash/fp/random';
 import { connect } from 'react-redux';
 import { getGameLayout, ResetGame } from '../state/SessionState';
@@ -9,7 +9,7 @@ type Props = {boardConfig: GameConfig, ResetGame: any}
 
 export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
     const [columns, setColumns] = useState(4)
-    const [symbols, setSymbols] = useState('1,@,!,^,JKL,FBC,CBF,BCF')
+    const [symbols, setSymbols] = useState(defaultGameChars)
     const resetGame = () => {
         ResetGame(columns, symbols)
     }
