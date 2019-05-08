@@ -12,6 +12,19 @@
     - local
     - remote
 
+### Spec
+[x] The premise of the game is to have a grid of 4X4 face-down cards. 
+[x] The card faces consist of pairs of matches (A,B,C,D,E,F,G,H) 
+[x] clicking on cards will flip them over revealing the value. 
+[x] When two are chosen, 
+	[x] if its a match both cards will disappear, 
+	[x] if its not, the cards will flip back over to be face down. 
+[x] The game should be different every time the game is refreshed. 
+[x] the board should be randomized.
+
+[x] Advanced Activities
+	[x] allow for use of symbols
+ 	[x] allow grid to be variably sized
 
 
 
