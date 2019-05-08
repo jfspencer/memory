@@ -21,7 +21,7 @@ export const baseState = {
     prefs: {columns: 4, symbols: 'A,B,C,D,E,F,G,H'}
 }
 type ReducerAction<T> = {type: string, payload: T }
-export function SessionStateReducerImperative(state = baseState, action: ReducerAction<ResetPayload & Card>) {
+export function SessionStateReducerImperative(state = baseState, action: ReducerAction<ResetPayload & Card>): typeof baseState {
   switch (action.type) {
     case '[GameBoard] RESET':
       const {columns, symbols} = action.payload;
