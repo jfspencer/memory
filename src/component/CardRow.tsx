@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Card } from './Card'
-import { CardState } from '../util/utils';
 import random from 'lodash/fp/random'
+import { CardState } from '../state/SessionState';
 
 type Props = { row: CardState[]}
 

@@ -1,6 +1,5 @@
-import {flatMap, shuffle, chunk} from 'lodash/fp'
-export type CardState = {char:string, found: boolean, id: number}
-export type GameConfig = CardState[][]
+import { shuffle, chunk} from 'lodash/fp'
+import { GameConfig } from '../state/SessionState';
 
 export const defaultGameChars: string = "A,B,C,D,E,@,AB,BA"
 let count = 0

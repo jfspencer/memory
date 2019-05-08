@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
 import { CardRow } from './CardRow'
-import { GameConfig, defaultGameChars } from '../util/utils';
+import { defaultGameChars } from '../util/utils';
 import random from 'lodash/fp/random';
 import { connect } from 'react-redux';
-import { getGameLayout, ResetGame } from '../state/SessionState';
+import { getGameLayout, ResetGame, GameConfig } from '../state/SessionState';
+import { State } from '../state';
 
-type Props = {boardConfig: GameConfig, ResetGame: any}
+type Props = {boardConfig: GameConfig, ResetGame: typeof ResetGame}
 
 export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
     const [columns, setColumns] = useState(4)
@@ -26,7 +27,7 @@ export const _GameBoard: FC<Props> = ({boardConfig, ResetGame}) => {
     )
 }
 
-const mapStateToProps = (state: any) => ({boardConfig: getGameLayout(state)})
+const mapStateToProps = (state: State) => ({boardConfig: getGameLayout(state)})
 export const GameBoard = connect(mapStateToProps, {ResetGame})(_GameBoard)
 
 //** */

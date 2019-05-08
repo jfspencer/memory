@@ -1,11 +1,15 @@
 import { createStore } from 'redux'
 import { combineReducers } from 'redux'
-import { SessionStateReducer as sessionState } from './SessionState';
+import { SessionStateReducer as sessionState, baseState } from './SessionState';
 
-const stateReducers = combineReducers({
+const reducers = {
   sessionState
-})
+}
 
-  export const store = createStore(stateReducers)
+const stateReducers = combineReducers(reducers)
 
-  store.subscribe(() => console.log(store.getState()))
+export type State = {sessionState: typeof baseState}
+
+export const store = createStore(stateReducers)
+
+store.subscribe(() => console.log(store.getState()))
