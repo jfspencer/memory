@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { shuffle, uniq, partition, map, some} from 'lodash/fp'
 
-export type Card = {char:string, found: boolean, id: number, matchesTurn}
+export type Card = {char:string, found: boolean, id: number, matchesTurn: boolean}
 export type GameConfig = Card[]
 
 
@@ -9,20 +9,27 @@ export type GameConfig = Card[]
 export class UtilsService {
     static defaultGameChars: string = "A,B,C,D,E,@,AB,BA"
     static count = 0
+    static turn: Card[] = []
 
-    cardTapped(game:GameConfig, card: Card, turn: Card[]) {
-      if(turn.length  < 2) return [game, [...turn, card]]
-      else if(turn.length === 2) {
-        const [c1, c2] = turn
+    cardTapped(game:GameConfig, card: Card) {
+      if(UtilsService.turn.length  < 2) {
+        UtilsService.turn = [...UtilsService.turn, card]
+        return this.cleaupTurn(game)
+      }
+      else if(UtilsService.turn.length === 2) {
+        const [c1, c2] = UtilsService.turn
         if(c1.char === c2.char) {
           const [matchedCards]: Card[][] = partition((v: Card) => v.id === c1.id || v.id === c2.id, game)
           const [foundMatch1, foundMatch2]:Card[] = map((v: Card): Card => ({...v, found:true}), matchedCards)
-          const updatedGame = map(this.updateMatches(foundMatch1, foundMatch2, turn), game)
-          return [[...updatedGame], [card]]
+          const updatedGame = map(this.updateMatches(foundMatch1, foundMatch2), game)
+          UtilsService.turn = [card]
+          return updatedGame
         }
-        return [[...game], [card]]
+        UtilsService.turn = [card]
+        return this.cleaupTurn(game)
       }
-      return [[...game], []]
+      UtilsService.turn = [card]
+      return this.cleaupTurn(game)
     }
 
     initGameBoard(col = 4, symbols = UtilsService.defaultGameChars): GameConfig {
@@ -30,8 +37,16 @@ export class UtilsService {
         const uniqSymbols = uniq(symbolsArray) //recent addition
         const charPairs = [...uniqSymbols, ...uniqSymbols] //18M ops/sec
         const randomizedPairs = 
-            shuffle(charPairs).map(char => ({char, found: false, id: this.genId(),matchesTurn:false }))
+            shuffle(charPairs).map(char => ({char, found: false, id: this.genId(), matchesTurn:false }))
         return randomizedPairs
+    }
+
+    private cleaupTurn(game: GameConfig) {
+      return game.map(v => {
+        if(some((c: Card) => c.id === v.id, UtilsService.turn)) return {...v, matchesTurn: true}
+        if(!some((c: Card) => c.id === v.id, UtilsService.turn) && v.matchesTurn) return {...v, matchesTurn: false}
+        return v
+      })
     }
 
     private genId() {
@@ -39,12 +54,11 @@ export class UtilsService {
         return UtilsService.count
    }
 
-   private updateMatches (m1: Card, m2:Card, turn: Card[]) {
-    
+   private updateMatches (m1: Card, m2:Card) {
         return (card: Card) =>  {
             if(card.id === m1.id) return  m1;
             else if(card.id === m2.id) return m2;
-            else return some((v: Card) => v.id === card.id, turn) ? {...card, matchesTurn: true} : {...card, matchesTurn: false} 
+            else return card
           }
    }
 }

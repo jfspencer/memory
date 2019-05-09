@@ -8,7 +8,6 @@ import { Card } from '../../services/utils.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  turn: Card[] = []
   @Input() cards: Card[] = []
 
   constructor(private utils: UtilsService) {}
@@ -18,10 +17,9 @@ export class BoardComponent implements OnInit {
   }
 
   cardTapped(card: Card) {
-    const [nextCards, nextTurn] = this.utils.cardTapped(this.cards, card, this.turn)
-    console.log(nextCards, nextTurn)
-    this.cards = nextCards
-    this.turn = nextTurn
+    const nextGameState = this.utils.cardTapped(this.cards, card)
+    console.log(nextGameState)
+    this.cards = nextGameState
   }
 
   trackCards(i, card:Card){
