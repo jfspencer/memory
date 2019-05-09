@@ -8,14 +8,24 @@ import { Card } from '../../services/utils.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-
+  turn: Card[] = []
   @Input() cards: Card[] = []
 
   constructor(private utils: UtilsService) {}
 
   ngOnInit() {
     this.cards = this.utils.initGameBoard()
-    console.log(this.cards)
+  }
+
+  cardTapped(card: Card) {
+    const [nextCards, nextTurn] = this.utils.cardTapped(this.cards, card, this.turn)
+    console.log(nextCards, nextTurn)
+    this.cards = nextCards
+    this.turn = nextTurn
+  }
+
+  trackCards(i, card:Card){
+    return card.id
   }
   
 }

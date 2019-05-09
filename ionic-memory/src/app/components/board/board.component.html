@@ -1,7 +1,7 @@
 
 <div class="board">
-    <div *ngFor="let card of cards">
-        <card [card]="card"></card>
+    <div *ngFor="let card of cards;trackBy: trackCards">
+        <card [card]="[card, turn]" (cardTapped)="cardTapped($event)"></card>
     </div>
 </div>
 
