@@ -1,0 +1,6 @@
+{
+  "appId": "com.happieio.ionic.tabs",
+  "appName": "TabsApp",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

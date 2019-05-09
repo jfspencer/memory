@@ -6,10 +6,6 @@ describe('SessionState', () => {
 
     });
 
-    it('getPrefs should return game config prefs from state', () => {
-
-    });
-
     it('SessionStateReducer should handle RESET action without user defined prefs', () => {
 
     });

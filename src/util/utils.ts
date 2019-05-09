@@ -1,6 +1,5 @@
-import { shuffle, chunk} from 'lodash/fp'
+import { shuffle, chunk, uniq} from 'lodash/fp'
 import { GameConfig } from '../state/SessionState';
-import uniq from 'lodash/fp/uniq'
 
 export const defaultGameChars: string = "A,B,C,D,E,@,AB,BA"
 let count = 0

@@ -7,12 +7,11 @@ export type Card = {char:string, found: boolean, id: number}
 export type GameConfig = Card[][]
 
 //** ACTIONS */
-export const CardTap = (char: Card) => ({type: '[Card] TAP', payload: char})
+export const TapCard = (char: Card) => ({type: '[Card] TAP', payload: char})
 export const ResetGame = (columns:number, symbols:string) => ({type: '[GameBoard] RESET', payload: {columns, symbols}})
 
 //** SELECTORS */
 export const getGameLayout = (state: State) => state.sessionState.boardConfig
-export const getPrefs = (state: State) => state.sessionState.prefs
 
 //** REDUCER */
 export const baseState = {

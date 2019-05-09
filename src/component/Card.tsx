@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react'
 import { connect } from 'react-redux'
-import { CardTap, Card as CardT } from '../state/SessionState';
+import { TapCard, Card as CardT } from '../state/SessionState';
 import { State } from '../state';
 
 const style = {
@@ -13,10 +13,10 @@ const activeCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...style.ac
 const inactiveCard = {...{ transform: 'rotateY(-180deg)'}, ...style.base, ...style.inactive}
 const matchedCard = {...{ transform: 'rotateY(0deg)'}, ...style.base, ...{backgroundColor:'rgb(60,60,55)', border: '0'}}
 
-type Props = { card: CardT, CardTap: typeof CardTap, turn: CardT[]}
-const _Card: FC<Props> = ({card, CardTap, turn}) => {
+type Props = { card: CardT, TapCard: typeof TapCard, turn: CardT[]}
+const _Card: FC<Props> = ({card, TapCard, turn}) => {
     const toggleState = useCallback(() => 
-        !turn.find(v => v.id === card.id) ? CardTap(card) : null, [turn, CardTap, card])
+        !turn.find(v => v.id === card.id) ? TapCard(card) : null, [turn, TapCard, card])
 
     const cardState = card.found 
     ? (<div id="card-invisible" style={matchedCard} />) 
@@ -29,4 +29,4 @@ const _Card: FC<Props> = ({card, CardTap, turn}) => {
 
 const mapStateToProps = (state: State ) => ({turn: state.sessionState.turn})
 
-export const Card = connect(mapStateToProps, {CardTap})(_Card)
+export const Card = connect(mapStateToProps, {TapCard})(_Card)
