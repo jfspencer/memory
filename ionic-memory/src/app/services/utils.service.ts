@@ -23,7 +23,7 @@ export class UtilsService {
           const [foundMatch1, foundMatch2]:Card[] = map((v: Card): Card => ({...v, found:true}), matchedCards)
           const updatedGame = map(this.updateMatches(foundMatch1, foundMatch2), game)
           UtilsService.turn = [card]
-          return updatedGame
+          return this.cleaupTurn(updatedGame)
         }
         UtilsService.turn = [card]
         return this.cleaupTurn(game)
